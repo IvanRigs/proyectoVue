@@ -30,9 +30,13 @@ createApp({
             fetch('https://api.themoviedb.org/3/authentication/token/validate_with_login', options)
             .then(response => response.json())
             .then(response => {
-                console.log(response)
-                alert("Hola y bienvenido "+this.username)
-            }).catch(err => console.error(err));
+                console.log(response);
+                sessionStorage.setItem("sesion",this.username);
+                alert("Hola y bienvenido "+this.username);
+            }).catch(err => {
+                console.error(err)
+                alert("Algo salio mal, vuela a intentarlo")
+            });
         }
     }
 }).mount('#app');
