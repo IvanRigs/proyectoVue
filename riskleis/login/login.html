@@ -14,9 +14,27 @@
 
 <body>
 
-    <p>hola</p>
-    <script src="login.js"></script>
+    <div id="app">
+        <div id="banner">
+            <h1>MovieDB</h1>
+        </div>
 
+        <div id="contForm">
+            <form @submit.prevent="enviarInfo" class="border rounded">
+                <div class="mb-3">
+                    <label class="form-label">Nombre de usuario</label>
+                    <input type="text" v-model="username" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Contraseña</label>
+                    <input type="password" v-model="password" class="form-control" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Iniciar sesión</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="login.js"></script>
 </body>
 
 </html>
