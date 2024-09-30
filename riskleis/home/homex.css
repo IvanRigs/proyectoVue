@@ -16,7 +16,7 @@ html, body {
 
 .banner img {
     width: 100%;
-    height: 60vh;
+    height: 70vh;
     object-fit: cover;
 }
 
@@ -51,7 +51,7 @@ html, body {
     .fw-bold{
         text-align: left;
         color: white;
-        font-size: 32px;
+        font-size: 64px;
     }
 
     .fs-6{
