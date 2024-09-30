@@ -31,8 +31,7 @@
 
                     <div class="alineacionInputs">
                         <div class="mb-3">
-                            <label class="form-label">Nombre de usuario</label>
-                            <input @click="errorLogin = false" type="text" v-model="username" class="form-control" required>
+                            <input @click="errorLogin = false" type="text" v-model="username" placeholder="Usuario" class="form-control" required>
 
                             <div v-if="errorLogin" class="text-danger" aria-live="assertive">
                                 Correo o contraseña incorrectas.
@@ -42,8 +41,7 @@
 
                         <div class="mb-3">
 
-                            <label class="form-label">Contraseña</label>
-                            <input @click="errorLogin = false" type="password" v-model="password" class="form-control" required>
+                            <input @click="errorLogin = false" type="password" v-model="password" placeholder="Contrasena" class="form-control" required>
 
                             <div v-if="errorLogin" class="text-danger" aria-live="assertive">
                                 Correo o contraseña incorrectas.
