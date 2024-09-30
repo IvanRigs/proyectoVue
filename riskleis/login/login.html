@@ -16,24 +16,38 @@
 
     <div id="app">
         <div id="banner">
-            <h1>MovieDB</h1>
+            <h1>R I S K L E I S.</h1>
         </div>
 
         <div id="contForm">
-            <form @submit.prevent="enviarInfo" class="border rounded">
+            <form @submit.prevent="postLogin" class="border rounded">
                 <div class="mb-3">
+
                     <label class="form-label">Nombre de usuario</label>
-                    <input type="text" v-model="username" class="form-control" required>
+                    <input @click="errorLogin = false" type="text" v-model="username" class="form-control" required>
+
+                    <div v-if="errorLogin" class="text-danger" aria-live="assertive">
+                        Correo o contraseña incorrectas.
+                    </div>
+
                 </div>
+
                 <div class="mb-3">
+
                     <label class="form-label">Contraseña</label>
-                    <input type="password" v-model="password" class="form-control" required>
+                    <input @click="errorLogin = false" type="password" v-model="password" class="form-control" required>
+
+                    <div v-if="errorLogin" class="text-danger" aria-live="assertive">
+                        Correo o contraseña incorrectas.
+                    </div>
+
                 </div>
+
                 <button type="submit" class="btn btn-primary">Iniciar sesión</button>
             </form>
         </div>
         <footer id="pie">
-            <h1>MovieDB</h1>
+            <h1>Riskleis</h1>
             <div class="contenidoUno">
                 <h3>Contactanos</h3>
                 <h3>Más información</h3>

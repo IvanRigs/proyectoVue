@@ -2,7 +2,7 @@
 .cuerpo-principal {
     display: flex;
     flex-direction: column;
-    background-color: #1a2d49;
+    background-color: rgb(22, 22, 22);
     color: white;
 }
 
@@ -81,7 +81,7 @@
     }
 
     .btn-primary {
-        background-color: darkred;
+        background-color: rgb(205, 129, 17);
         border: none;
         margin-left: 5px;
         width: 30%;
@@ -89,7 +89,7 @@
     }
 
     .btn-primary:active{
-        background-color: #6a0101;
+        background-color: rgb(151, 94, 13);
     }
 }
 
@@ -129,7 +129,7 @@
 /* bootstrap */
 .btn-outline-light {
     font-size: 20px;
-    background-color: #132135;
+    background-color: rgb(12, 12, 12);
 }
 
 .fw-bold {

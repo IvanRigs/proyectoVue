@@ -1,10 +1,13 @@
+body{
+    background-color: rgb(22, 22, 22);
+}
+
 #app{
     width: 100%;
 }
 
 #banner{
     width: 100%;
-    background-color: rgb(3, 37, 65);
     padding: 5px 10px;
     margin-bottom: 20px;
 }
@@ -33,7 +36,6 @@
     bottom: 0;
     width: 100%;
     color: white;
-    background-color: rgb(3, 37, 65);
 }
 #pie h1{
     margin: 10px;

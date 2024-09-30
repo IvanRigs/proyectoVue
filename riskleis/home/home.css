@@ -1,0 +1,105 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    height: auto;
+    overflow: hidden;
+    background-color: rgb(22, 22, 22);
+}
+
+#app {
+    height: 100vh;
+}
+
+.banner {
+    position: relative;
+}
+
+.banner img {
+    width: 100%;
+    height: 60vh;
+    object-fit: cover;
+}
+
+.loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(22, 22, 22, 0.6);
+    z-index: 1;
+    color: white;
+
+}
+
+.banner-titulo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 43.33%;
+    height: 100%;
+
+    padding: 40px;
+
+    .fw-bold{
+        text-align: left;
+        color: white;
+        font-size: 32px;
+    }
+
+    .fs-6{
+        text-align: left;
+    }
+}
+
+.d-block {
+    mask-image: linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0));
+}
+
+.banner-cont{
+    position: relative;
+}
+
+/* navbar pagina principal*/
+.contenedor-navbar {
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    display: flex;
+    width: 100%;
+    height: 12vh;
+    color: #fff;
+
+    z-index: 9999;
+
+    .fw-bold{
+        font-size: 32px;
+    }
+}
+
+.contenedor-nombre-navbar {
+    display: flex;
+    width: 40%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.contenedor-iniciosesion-navbar {
+    display: flex;
+    width: 57%;
+    height: 100%;
+    justify-content: right;
+    align-items: center;
+}
