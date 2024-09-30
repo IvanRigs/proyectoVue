@@ -1,3 +1,15 @@
+window.onload = function() {
+    const navbar = document.querySelector('.contenedor-navbar');
+
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 30) {
+            navbar.classList.add('scroll');
+        } else {
+            navbar.classList.remove('scroll');
+        }
+    });
+};
+
 const { createApp, ref } = Vue;
 
 createApp({
@@ -15,7 +27,7 @@ createApp({
         const series = ref([]);
 
         const obtenerTendencias = () => {
-            const url = `https://api.themoviedb.org/3/trending/all/week?api_key=${apiKey}`;
+            const url = `https://api.themoviedb.org/3/trending/all/week?api_key=${apiKey}&language=es-ES&page=1`;
 
             fetch(url)
                 .then(response => response.json())
@@ -25,6 +37,38 @@ createApp({
                 .catch(error => console.error('Error al obtener tendencias:', error));
         };
 
+        const obtenerPopulares = () => {
+            const url = `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=es-ES&page=1`;
+
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    populares.value = data.results || [];
+                })
+                .catch(error => console.error('Error al obtener populares:', error));
+        };
+
+        const obtenerSeries = () => {
+            const url = `https://api.themoviedb.org/3/tv/popular?api_key=${apiKey}&language=es-ES&page=1`;
+
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    series.value = data.results || [];
+                })
+                .catch(error => console.error('Error al obtener series:', error));
+        };
+
+        const obtenerPeliculasGratis = () => {
+            const url = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&language=es-ES&watch_region=US&with_watch_monetization_types=free`;
+
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    peliculasGratis.value = data.results || [];
+                })
+                .catch(error => console.error('Error al obtener películas gratis:', error));
+        };
 
         const obtenerTopPeliculas = () => {
             const url = `https://api.themoviedb.org/3/movie/top_rated?api_key=${apiKey}&language=es-ES&page=1`;
@@ -58,10 +102,13 @@ createApp({
             fetch(url)
                 .then(response => response.json())
                 .then(data => {
+                     console.log(data);
                     if (data && data.avatar && data.avatar.gravatar && data.avatar.gravatar.hash) {
                         imgPATH.value = `https://secure.gravatar.com/avatar/${data.avatar.gravatar.hash}.jpg?s=64`;
+                        console.log(imgPATH);
                         tieneImagen.value = true;
                     } else {
+                        console.log("dadsa");
                         tieneImagen.value = false;
                     }
                 })
@@ -70,6 +117,10 @@ createApp({
 
         obtenerTopPeliculas();
         obtenerTendencias();
+        obtenerPerfilUsuario();
+        obtenerPopulares();
+        obtenerSeries();
+        obtenerPeliculasGratis();
 
 
         return {
@@ -79,7 +130,8 @@ createApp({
             tieneImagen,
             tendencias,
             populares,
-            series
+            series,
+            peliculasGratis
         }
     }
 }).mount('#app');

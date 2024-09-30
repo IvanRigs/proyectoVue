@@ -13,105 +13,119 @@
 </head>
 
 <body>
-<div id="app">
 
-    <!-- Barra de navegacion -->
-    <div class="contenedor-navbar">
-        <div class="contenedor-nombre-navbar">
-            <p class="fw-bold">r i s k l e i s.</p>
-        </div>
+    <div id="app">
+        <div class="contenedor-principal">
+            <!-- Barra de navegacion -->
+            <div class="contenedor-navbar">
+                <div class="contenedor-nombre-navbar">
+                    <p class="fw-bold">r i s k l e i s.</p>
+                </div>
 
-        <div class="opciones-navbar">
-            <p class="fs-6">Inicio</p>
-            <p class="fs-6">Series</p>
-            <p class="fs-6">Peliculas</p>
-            <p class="fs-6">Novedades</p>
-        </div>
+                <div class="opciones-navbar">
+                    <p class="fs-6">Inicio</p>
+                    <p class="fs-6">Series</p>
+                    <p class="fs-6">Peliculas</p>
+                    <p class="fs-6">Novedades</p>
+                </div>
 
-        <div class="perfil-navbar">
-            <img v-if="tieneImagen" :src="imgPATH" alt="img" class="foto-perfil">
-            <div v-else class="contenedor-foto-perfil"></div>
-            <img src="ver.png" alt="ver" class="ver">
-        </div>
-    </div>
+                <div class="perfil-navbar">
+                    <img v-if="tieneImagen" :src="imgPATH" alt="img" class="foto-perfil">
+                    <div v-else class="contenedor-foto-perfil"></div>
+                    <img src="ver.png" alt="ver" class="ver">
+                </div>
+            </div>
 
-    <!-- BANNER -->
-    <div class="banner-cont">
-        <div v-if="backdrops.length > 0" class="banner">
+            <!-- BANNER -->
+            <div class="banner-cont">
+                <div v-if="backdrops.length > 0" class="banner">
 
-            <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
-                <div class="carousel-inner">
-                    <div v-for="(backdrop, index) in backdrops" :key="index" class="carousel-item" :class="{'active': index === 0}">
-                        <img :src="backdrop" class="d-block w-100" alt="Imagen de la película">
-                        <div class="overlay" v-if="topPeliculas.length > index">
-                            <div class="banner-titulo">
-                                <p class="fw-bold">{{ topPeliculas[index].original_title }}</p>
-                                <p class="fs-6">{{ topPeliculas[index].overview }}</p>
+                    <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                            <div v-for="(backdrop, index) in backdrops" :key="index" class="carousel-item" :class="{'active': index === 0}">
+                                <img :src="backdrop" class="d-block w-100" alt="Imagen de la película">
+                                <div class="overlay" v-if="topPeliculas.length > index">
+                                    <div class="banner-titulo">
+                                        <p class="fw-bold">{{ topPeliculas[index].original_title }}</p>
+                                        <p class="fs-6">{{ topPeliculas[index].overview }}</p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div v-else class="banner">
-            <div class="loading">
-                <div class="spinner-border text-light" role="status">
-                    <span class="visually-hidden">Loading...</span>
+                <div v-else class="banner">
+                    <div class="loading">
+                        <div class="spinner-border text-light" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>
                 </div>
             </div>
+
+            <div class="categorias">
+
+                <div class="categoria">
+                    <p class="fw-medium">Tendencias</p>
+
+                    <div class="contenido-categoria" v-if="tendencias.length > 0">
+                        <div v-for="tendencia in tendencias" :key="tendencia.id" class="card">
+                            <img :src="`https://image.tmdb.org/t/p/w500${tendencia.poster_path}`" alt="Poster" class="card-img-top">
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="categoria">
+                    <p class="fw-medium">Lo mas popular</p>
+
+                    <div class="contenido-categoria" v-if="populares.length > 0">
+                        <div v-for="popular in populares" :key="populares.id" class="card">
+                            <img :src="`https://image.tmdb.org/t/p/w500${popular.poster_path}`" alt="Poster" class="card-img-top">
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="categoria">
+                    <p class="fw-medium">Ver gratis</p>
+
+                    <div class="contenido-categoria" v-if="peliculasGratis.length > 0">
+                        <div v-for="peliculasGratis in peliculasGratis" :key="peliculasGratis.id" class="card">
+                            <img :src="`https://image.tmdb.org/t/p/w500${peliculasGratis.poster_path}`" alt="Poster" class="card-img-top">
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="categoria">
+                    <p class="fw-medium">Series</p>
+
+                    <div class="contenido-categoria" v-if="series.length > 0">
+                        <div v-for="series in series" :key="series.id" class="card">
+                            <img :src="`https://image.tmdb.org/t/p/w500${series.poster_path}`" alt="Poster" class="card-img-top">
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
         </div>
+
+        <footer id="pie">
+            <div style="margin-top: 16px">
+                <div class="contenidoUno">
+                    <p class="fs-3">r i s k l e i s</p>
+                    <p class="fs-6">Contactanos</p>
+                    <p class="fs-6">Ayuda</p>
+                    <p class="fs-6">Redes</p>
+                </div>
+            </div>
+        </footer>
+
     </div>
 
-    <div class="categorias">
-
-        <div class="categoria">
-            <p class="fw-medium">Tendencias</p>
-
-            <div class="contenido-categoria" v-if="tendencias.length > 0">
-                <div v-for="tendencia in tendencias" :key="tendencia.id" class="card">
-                    <img :src="`https://image.tmdb.org/t/p/w500${tendencia.poster_path}`" alt="Poster" class="card-img-top">
-                </div>
-            </div>
-
-        </div>
-
-        <div class="categoria">
-            <p class="fw-medium">Lo mas popular</p>
-
-            <div class="contenido-categoria" v-if="tendencias.length > 0">
-                <div v-for="tendencia in tendencias" :key="tendencia.id" class="card">
-                    <img :src="`https://image.tmdb.org/t/p/w500${tendencia.backdrop_path}`" alt="Poster" class="card-img-top">
-                </div>
-            </div>
-
-        </div>
-
-        <div class="categoria">
-            <p class="fw-medium">Ver gratis</p>
-
-            <div class="contenido-categoria" v-if="tendencias.length > 0">
-                <div v-for="tendencia in tendencias" :key="tendencia.id" class="card">
-                    <img :src="`https://image.tmdb.org/t/p/w500${tendencia.backdrop_path}`" alt="Poster" class="card-img-top">
-                </div>
-            </div>
-
-        </div>
-
-        <div class="categoria">
-            <p class="fw-medium">Series</p>
-
-            <div class="contenido-categoria" v-if="tendencias.length > 0">
-                <div v-for="tendencia in tendencias" :key="tendencia.id" class="card">
-                    <img :src="`https://image.tmdb.org/t/p/w500${tendencia.backdrop_path}`" alt="Poster" class="card-img-top">
-                </div>
-            </div>
-
-        </div>
-
-    </div>
-
-
-</div>
 <script src="home.js"></script>
+
 </body>
 </html>
