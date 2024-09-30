@@ -9,11 +9,31 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 
-    <link href="homex.css" rel="stylesheet">
+    <link href="home.css" rel="stylesheet">
 </head>
 
 <body>
 <div id="app">
+
+    <!-- Barra de navegacion -->
+    <div class="contenedor-navbar">
+        <div class="contenedor-nombre-navbar">
+            <p class="fw-bold">r i s k l e i s.</p>
+        </div>
+
+        <div class="opciones-navbar">
+            <p class="fs-6">Inicio</p>
+            <p class="fs-6">Series</p>
+            <p class="fs-6">Peliculas</p>
+            <p class="fs-6">Novedades</p>
+        </div>
+
+        <div class="perfil-navbar">
+            <img v-if="tieneImagen" :src="imgPATH" alt="img" class="foto-perfil">
+            <div v-else class="contenedor-foto-perfil"></div>
+            <img src="ver.png" alt="ver" class="ver">
+        </div>
+    </div>
 
     <!-- BANNER -->
     <div class="banner-cont">
@@ -42,16 +62,54 @@
         </div>
     </div>
 
-    <!-- Barra de navegacion -->
-    <div class="contenedor-navbar">
-        <div class="contenedor-nombre-navbar">
-            <p class="fw-bold">r i s k l e i s.</p>
+    <div class="categorias">
+
+        <div class="categoria">
+            <p class="fw-medium">Tendencias</p>
+
+            <div class="contenido-categoria" v-if="tendencias.length > 0">
+                <div v-for="tendencia in tendencias" :key="tendencia.id" class="card">
+                    <img :src="`https://image.tmdb.org/t/p/w500${tendencia.poster_path}`" alt="Poster" class="card-img-top">
+                </div>
+            </div>
+
         </div>
 
-        <div class="contenedor-iniciosesion-navbar">
-            <a href="home/home.html" class="btn btn-outline-light">Iniciar sesion</a>
+        <div class="categoria">
+            <p class="fw-medium">Lo mas popular</p>
+
+            <div class="contenido-categoria" v-if="tendencias.length > 0">
+                <div v-for="tendencia in tendencias" :key="tendencia.id" class="card">
+                    <img :src="`https://image.tmdb.org/t/p/w500${tendencia.backdrop_path}`" alt="Poster" class="card-img-top">
+                </div>
+            </div>
+
         </div>
+
+        <div class="categoria">
+            <p class="fw-medium">Ver gratis</p>
+
+            <div class="contenido-categoria" v-if="tendencias.length > 0">
+                <div v-for="tendencia in tendencias" :key="tendencia.id" class="card">
+                    <img :src="`https://image.tmdb.org/t/p/w500${tendencia.backdrop_path}`" alt="Poster" class="card-img-top">
+                </div>
+            </div>
+
+        </div>
+
+        <div class="categoria">
+            <p class="fw-medium">Series</p>
+
+            <div class="contenido-categoria" v-if="tendencias.length > 0">
+                <div v-for="tendencia in tendencias" :key="tendencia.id" class="card">
+                    <img :src="`https://image.tmdb.org/t/p/w500${tendencia.backdrop_path}`" alt="Poster" class="card-img-top">
+                </div>
+            </div>
+
+        </div>
+
     </div>
+
 
 </div>
 <script src="home.js"></script>

@@ -1,0 +1,191 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    height: auto;
+    overflow: auto;
+    background-color: rgb(32, 32, 32);
+}
+
+#app {
+    height: 100vh;
+}
+
+.banner {
+    position: relative;
+}
+
+.banner img {
+    width: 100%;
+    height: 70vh;
+    object-fit: cover;
+}
+
+.loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 70vh;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(32, 32, 32, 0.6);
+    z-index: 1;
+    color: white;
+
+}
+
+.banner-titulo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 43.33%;
+    height: 100%;
+
+    padding: 40px;
+
+    .fw-bold{
+        text-align: left;
+        color: white;
+        font-size: 64px;
+    }
+
+    .fs-6{
+        text-align: left;
+    }
+}
+
+.d-block {
+    mask-image: linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0));
+}
+
+.banner-cont{
+    position: relative;
+}
+
+/* navbar pagina principal*/
+.contenedor-navbar {
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    display: flex;
+    width: 100%;
+    height: 12vh;
+    color: #fff;
+
+    z-index: 9999;
+
+    .fw-bold{
+        font-size: 32px;
+    }
+}
+
+.contenedor-nombre-navbar {
+    display: flex;
+    width: 40%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.opciones-navbar {
+    display: flex;
+    width: 40%;
+    height: 100%;
+    align-items: center;
+
+    .fs-6{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-left: 32px;
+        cursor: pointer;
+    }
+}
+
+.perfil-navbar{
+    display: flex;
+    justify-content: right;
+    margin-right: 40px;
+    width: 30%;
+    height: 100%;
+    align-items: center;
+
+    .contenedor-foto-perfil{
+        width: 40px;
+        height: 40px;
+        border-radius: 25%;
+        background-color: white;
+        cursor: pointer;
+    }
+    .foto-perfil{
+        width: 40px;
+        border-radius: 25%;
+        height: auto;
+        cursor: pointer;
+    }
+}
+
+.ver{
+    margin-left: 10px;
+    width: 16px;
+    height: auto;
+    cursor: pointer;
+}
+
+/* CATEGORIAS */
+.categorias{
+    display: flex;
+    flex-direction: column;
+    margin: 40px;
+    margin-bottom: 0px;
+    height: auto;
+
+    .categoria{
+        color: white;
+
+        .fw-medium{
+            font-size: 20px;
+        }
+    }
+
+    .contenido-categoria{
+        display: flex;
+        overflow-x: auto;
+        white-space: nowrap;
+        padding: 40px;
+        padding-left: 10px;
+        border: none;
+        background-color: white;
+    }
+
+    /* Cartas */
+    .card {
+        border: none;
+        width: 10rem;
+        margin: 5px;cursor: pointer;
+        flex-shrink: 0;
+        transition: transform 0.2s;
+    }
+    .card:hover {
+        z-index: 99;
+        box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.6);
+        transform: scale(1.15);
+    }
+
+    .card-img-top {
+        border: none;
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+    }
+
+}
