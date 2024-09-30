@@ -15,43 +15,54 @@
 <body>
 
     <div id="app">
-        <div id="banner">
-            <h1>R I S K L E I S.</h1>
-        </div>
+        <div class="contenido-principal">
+            <!-- Barra de navegacion -->
+            <div class="contenedor-navbar">
+                <div class="contenedor-nombre-navbar">
+                    <p class="fw-bold">r i s k l e i s.</p>
+                </div>
+            </div>
 
-        <div id="contForm">
-            <form @submit.prevent="postLogin" class="border rounded">
-                <div class="mb-3">
-
-                    <label class="form-label">Nombre de usuario</label>
-                    <input @click="errorLogin = false" type="text" v-model="username" class="form-control" required>
-
-                    <div v-if="errorLogin" class="text-danger" aria-live="assertive">
-                        Correo o contraseña incorrectas.
+            <div id="contForm">
+                <form @submit.prevent="postLogin" class="border-rounded">
+                    <div>
+                        <p class="fs-1">Iniciar sesion</p>
                     </div>
 
-                </div>
+                    <div class="alineacionInputs">
+                        <div class="mb-3">
+                            <label class="form-label">Nombre de usuario</label>
+                            <input @click="errorLogin = false" type="text" v-model="username" class="form-control" required>
 
-                <div class="mb-3">
+                            <div v-if="errorLogin" class="text-danger" aria-live="assertive">
+                                Correo o contraseña incorrectas.
+                            </div>
 
-                    <label class="form-label">Contraseña</label>
-                    <input @click="errorLogin = false" type="password" v-model="password" class="form-control" required>
+                        </div>
 
-                    <div v-if="errorLogin" class="text-danger" aria-live="assertive">
-                        Correo o contraseña incorrectas.
+                        <div class="mb-3">
+
+                            <label class="form-label">Contraseña</label>
+                            <input @click="errorLogin = false" type="password" v-model="password" class="form-control" required>
+
+                            <div v-if="errorLogin" class="text-danger" aria-live="assertive">
+                                Correo o contraseña incorrectas.
+                            </div>
+
+                        </div>
+                        <button type="submit" class="btn btn-primary">Iniciar sesión</button>
                     </div>
-
-                </div>
-
-                <button type="submit" class="btn btn-primary">Iniciar sesión</button>
-            </form>
+                </form>
+            </div>
         </div>
         <footer id="pie">
-            <h1>Riskleis</h1>
-            <div class="contenidoUno">
-                <h3>Contactanos</h3>
-                <h3>Más información</h3>
-                <h3>Redes</h3>
+            <div style="margin-top: 16px">
+                <div class="contenidoUno">
+                    <p class="fs-3">r i s k l e i s</p>
+                    <p class="fs-6">Contactanos</p>
+                    <p class="fs-6">Ayuda</p>
+                    <p class="fs-6">Redes</p>
+                </div>
             </div>
         </footer>
     </div>
