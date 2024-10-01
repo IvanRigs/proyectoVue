@@ -1,0 +1,138 @@
+body{
+    background-color: rgb(22, 22, 22);
+}
+
+#app{
+    width: 100%;
+}
+
+.contenido-principal{
+    width: 100%;
+    height: 100vh;
+    background-color: rgb(32, 32, 32);
+}
+
+#banner{
+    width: 100%;
+    padding: 5px 10px;
+    margin-bottom: 20px;
+}
+
+#contForm{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+}
+
+.fs-1 {
+    text-align: center;
+    margin-top: 10px;
+}
+
+#contForm > form{
+    /*background-color: lightblue;*/
+    width: 33%;
+    padding: 15px;
+    height: 75vh;
+}
+
+.border-rounded{
+    border-radius: 16px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 1)
+}
+
+#pie{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    color: white;
+}
+#pie h1{
+    margin: 10px;
+}
+#pie .contenidoUno{
+    display: flex;
+    flex-direction: row;
+    margin: 10px;
+    
+    .fs-6{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-left: 32px;
+        cursor: pointer;
+    }
+
+}
+
+/* navbar pagina principal*/
+.contenedor-navbar {
+    display: flex;
+    width: 100%;
+    height: 12vh;
+    color: #fff;
+
+    .fw-bold{
+        font-size: 32px;
+    }
+}
+
+.contenedor-nombre-navbar {
+    display: flex;
+    width: 40%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+#contPrincipal{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+#informacion{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.contPromVotos{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 420px;
+    padding: 50px 0px;
+    border-radius: 8px;
+    background: #fff;
+    row-gap: 30px;
+}
+.circularProgress{
+    position: relative;
+    height: 250px;
+    width: 250px;
+    border-radius: 50%;
+    /*background: conic-gradient(#2A83E8 3.6deg, #E3E3E3 0deg);*/
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.circularProgress::before{
+    content: "";
+    position: absolute;
+    height: 210px;
+    width: 210px;
+    border-radius: 50%;
+    background-color: #fff;
+}
+.progressValue{
+    position: relative;
+    font-size: 40px;
+    font-weight: 600;
+    color: #2A83E8;
+}
