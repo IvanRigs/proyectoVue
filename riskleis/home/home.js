@@ -26,6 +26,8 @@ createApp({
         const peliculasGratis = ref([]);
         const series = ref([]);
 
+        const movie = ref();
+
         const obtenerTendencias = () => {
             const url = `https://api.themoviedb.org/3/trending/all/week?api_key=${apiKey}&language=es-ES&page=1`;
 
@@ -115,6 +117,28 @@ createApp({
                 .catch(error => console.error('Error al obtener el perfil del usuario:', error));
         };
 
+        const showMovie = (movieId) => {
+            localStorage.setItem('movieId', movieId);
+            location.href = "../detallePelicula/detallePelicula.html";
+        }
+
+        const getMovieId = (movieId) => {
+
+            fetch(`https://api.themoviedb.org/3/movie/${movieId}?api_key=${apiKey}&language=es-ES`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    movie.value = data;
+                    console.log(movie.value)
+                })
+                .catch(error => console.error('Error fetching movie details:', error));
+
+        }
+
         obtenerTopPeliculas();
         obtenerTendencias();
         obtenerPerfilUsuario();
@@ -131,7 +155,9 @@ createApp({
             tendencias,
             populares,
             series,
-            peliculasGratis
+            peliculasGratis,
+            movie,
+            showMovie
         }
     }
 }).mount('#app');

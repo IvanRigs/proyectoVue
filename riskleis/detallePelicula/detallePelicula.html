@@ -14,6 +14,44 @@
 
 <body>
 
+    <div id="app">
+
+        <div class="contenedor-principal">
+            <!-- Barra de navegacion -->
+            <div class="contenedor-navbar">
+                <div class="contenedor-nombre-navbar">
+                    <p class="fw-bold">r i s k l e i s.</p>
+                </div>
+
+                <div class="opciones-navbar">
+                    <p class="fs-6">Inicio</p>
+                    <p class="fs-6">Series</p>
+                    <p class="fs-6">Peliculas</p>
+                    <p class="fs-6">Novedades</p>
+                </div>
+
+                <div class="perfil-navbar">
+                    <img v-if="tieneImagen" :src="imgPATH" alt="img" class="foto-perfil">
+                    <div v-else class="contenedor-foto-perfil"></div>
+                    <img src="../ver.png" alt="ver" class="ver">
+                </div>
+            </div>
+        </div>
+
+        <footer id="pie">
+            <div style="margin-top: 16px">
+                <div class="contenidoUno">
+                    <p class="fs-3">r i s k l e i s</p>
+                    <p class="fs-6">Contactanos</p>
+                    <p class="fs-6">Ayuda</p>
+                    <p class="fs-6">Redes</p>
+                </div>
+            </div>
+        </footer>
+
+
+    </div>
+
     <script src="detallePelicula.js"></script>
 </body>
 

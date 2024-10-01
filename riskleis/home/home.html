@@ -16,6 +16,7 @@
 
     <div id="app">
         <div class="contenedor-principal">
+
             <!-- Barra de navegacion -->
             <div class="contenedor-navbar">
                 <div class="contenedor-nombre-navbar">
@@ -23,7 +24,7 @@
                 </div>
 
                 <div class="opciones-navbar">
-                    <p class="fs-6">Inicio</p>
+                    <p class="fw-bold">Inicio</p>
                     <p class="fs-6">Series</p>
                     <p class="fs-6">Peliculas</p>
                     <p class="fs-6">Novedades</p>
@@ -32,7 +33,7 @@
                 <div class="perfil-navbar">
                     <img v-if="tieneImagen" :src="imgPATH" alt="img" class="foto-perfil">
                     <div v-else class="contenedor-foto-perfil"></div>
-                    <img src="ver.png" alt="ver" class="ver">
+                    <img src="../ver.png" alt="ver" class="ver">
                 </div>
             </div>
 
@@ -69,7 +70,7 @@
                     <p class="fw-medium">Tendencias</p>
 
                     <div class="contenido-categoria" v-if="tendencias.length > 0">
-                        <div v-for="tendencia in tendencias" :key="tendencia.id" class="card">
+                        <div v-for="tendencia in tendencias" :key="tendencia.id" class="card" @click="showMovie(tendencia.id)">
                             <img :src="`https://image.tmdb.org/t/p/w500${tendencia.poster_path}`" alt="Poster" class="card-img-top">
                         </div>
                     </div>
@@ -80,7 +81,7 @@
                     <p class="fw-medium">Lo mas popular</p>
 
                     <div class="contenido-categoria" v-if="populares.length > 0">
-                        <div v-for="popular in populares" :key="populares.id" class="card">
+                        <div v-for="popular in populares" :key="populares.id" class="card" @click="showMovie(popular.id)">
                             <img :src="`https://image.tmdb.org/t/p/w500${popular.poster_path}`" alt="Poster" class="card-img-top">
                         </div>
                     </div>
@@ -91,7 +92,7 @@
                     <p class="fw-medium">Ver gratis</p>
 
                     <div class="contenido-categoria" v-if="peliculasGratis.length > 0">
-                        <div v-for="peliculasGratis in peliculasGratis" :key="peliculasGratis.id" class="card">
+                        <div v-for="peliculasGratis in peliculasGratis" :key="peliculasGratis.id" class="card" @click="showMovie(peliculasGratis.id)">
                             <img :src="`https://image.tmdb.org/t/p/w500${peliculasGratis.poster_path}`" alt="Poster" class="card-img-top">
                         </div>
                     </div>
@@ -102,7 +103,7 @@
                     <p class="fw-medium">Series</p>
 
                     <div class="contenido-categoria" v-if="series.length > 0">
-                        <div v-for="series in series" :key="series.id" class="card">
+                        <div v-for="series in series" :key="series.id" class="card" @click="showMovie(series.id)">
                             <img :src="`https://image.tmdb.org/t/p/w500${series.poster_path}`" alt="Poster" class="card-img-top">
                         </div>
                     </div>
