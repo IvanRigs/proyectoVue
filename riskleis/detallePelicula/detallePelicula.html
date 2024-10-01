@@ -36,6 +36,33 @@
                     <img src="../ver.png" alt="ver" class="ver">
                 </div>
             </div>
+
+            <!-- BANNER -->
+            <div class="banner-cont">
+                <div class="banner">
+                    <img
+                            v-if="!loading && movie"
+                            :src="`https://image.tmdb.org/t/p/w1280${movie.backdrop_path}`"
+                            class="d-block w-100"
+                            alt="Imagen de la película"
+                    >
+                    <div class="overlay" v-if="!loading && movie">
+                        <div class="banner-titulo">
+                            <p class="fw-bold">{{ movie.original_title }}</p>
+                            <p class="fs-6">{{ movie.overview }}</p>
+                        </div>
+                    </div>
+                    <div v-else class="banner">
+                        <div class="loading">
+                            <div class="spinner-border text-light" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
         </div>
 
         <footer id="pie">

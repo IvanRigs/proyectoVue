@@ -95,6 +95,66 @@ html, body {
     cursor: pointer;
 }
 
+/* BANNER */
+.banner {
+    position: relative;
+}
+
+.banner-cont{
+    position: relative;
+}
+
+.banner img {
+    width: 100%;
+    height: 60vh;
+    object-fit: cover;
+}
+
+.banner-titulo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 43.33%;
+    height: 100%;
+
+    padding: 40px;
+
+    .fw-bold{
+        text-align: left;
+        color: white;
+        font-size: 54px;
+        line-height: 1.2;
+    }
+
+    .fs-6{
+        text-align: left;
+    }
+
+}
+
+.d-block {
+    mask-image: linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0));
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(32, 32, 32, 0.6);
+    z-index: 1;
+    color: white;
+
+}
+
+.loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 70vh;
+}
+
 #pie{
     display: flex;
     flex-direction: row;

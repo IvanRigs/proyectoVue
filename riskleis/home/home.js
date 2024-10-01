@@ -122,23 +122,6 @@ createApp({
             location.href = "../detallePelicula/detallePelicula.html";
         }
 
-        const getMovieId = (movieId) => {
-
-            fetch(`https://api.themoviedb.org/3/movie/${movieId}?api_key=${apiKey}&language=es-ES`)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    movie.value = data;
-                    console.log(movie.value)
-                })
-                .catch(error => console.error('Error fetching movie details:', error));
-
-        }
-
         obtenerTopPeliculas();
         obtenerTendencias();
         obtenerPerfilUsuario();

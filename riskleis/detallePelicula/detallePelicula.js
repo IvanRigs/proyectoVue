@@ -21,6 +21,8 @@ createApp({
         const tieneImagen = ref(false);
 
         const movie = ref();
+        const loading = ref(true);
+
 
         const obtenerPerfilUsuario = () => {
             if (!sessionId) {
@@ -49,8 +51,8 @@ createApp({
         }
 
         const getMovieId = (movieId) => {
-
-            fetch(`https://api.themoviedb.org/3/movie/${movieId}?api_key=${apiKey}&language=es-ES`)
+            loading.value = true; // Iniciar carga
+            fetch(`https://api.themoviedb.org/3/movie/${movieId}?api_key=${apiKey}`)
                 .then(response => {
                     if (!response.ok) {
                         throw new Error('Network response was not ok');
@@ -61,9 +63,12 @@ createApp({
                     console.log(data);
                     movie.value = data;
                 })
-                .catch(error => console.error('Error fetching movie details:', error));
+                .catch(error => console.error('Error fetching movie details:', error))
+                .finally(() => {
+                    loading.value = false; // Finalizar carga
+                });
+        };
 
-        }
 
         obtenerPerfilUsuario();
         getMovieId(localStorage.getItem('movieId'));
@@ -72,6 +77,7 @@ createApp({
             imgPATH,
             tieneImagen,
             movie,
+            loading,
             showMovie
         }
     }
