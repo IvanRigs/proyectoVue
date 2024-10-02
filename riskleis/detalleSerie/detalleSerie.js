@@ -2,9 +2,11 @@ const { createApp, ref } = Vue;
 
 createApp({
     setup(){
-        const sessionId = ref('')
+        const sessionId = ref(localStorage.getItem('sessionId'))
         const serieId = ref(231000)
         const urlParams = ref('')
+        const obtenerObjeto = JSON.parse(localStorage.getItem('obj'))
+        const apiKey = 'f8c72830b3e50f4fdd3857dea8cb5d97';
 
         const detallesSerie = ref({})
         const keywordsSerie = ref({})
@@ -25,6 +27,11 @@ createApp({
         const recomPagTotales = ref(0)
         const votosPorcentaje = ref('')
         const styleBackg = ref('')
+        
+        const imgPATH = ref('');
+        const tieneImagen = ref(false);
+        const logout = ref(false)
+        const estaLogeado = ref(false)
 
         return {
             serieId,
@@ -46,7 +53,13 @@ createApp({
             recomendacionesSerie,
             serieId,
             urlParams,
-            listaTemporadas
+            listaTemporadas,
+            obtenerObjeto,
+            imgPATH,
+            tieneImagen,
+            logout,
+            estaLogeado,
+            apiKey
         }
     },
     methods: {
@@ -73,6 +86,7 @@ createApp({
                     this.obtenerCastSerie()
                     this.obtenerVideos()
                     this.obtenerRecomendaciones()
+                    this.obtenerPerfilUsuario()
 
                     this.date = this.detallesSerie.first_air_date.split("-")
                     this.year = this.date[0]
@@ -93,7 +107,6 @@ createApp({
             .then(response => {
                 let responseString = JSON.parse(JSON.stringify(response))
                 this.castSerie = responseString.cast
-                console.log(this.castSerie)
             })
             .catch(err => console.error(err));
         },
@@ -129,7 +142,6 @@ createApp({
                 let responseString = JSON.parse(JSON.stringify(response))
                 this.recomendacionesSerie = responseString.results
                 this.recomPagTotales = responseString.total_pages
-                console.log(this.recomendacionesSerie)
             })
             .catch(err => console.error(err));
         },
@@ -155,7 +167,6 @@ createApp({
             .then(response => {
                 let responseString = JSON.parse(JSON.stringify(response))
                 this.keywordsSerie = responseString.results
-                console.log(this.keywordsSerie)
             })
             .catch(err => console.error(err));
         },
@@ -242,21 +253,57 @@ createApp({
                 //console.log(response)
             })
             .catch(err => console.error(err));
+        },
+        goToHome(){
+            location.href = "../home/home.html";
+        },
+        obtenerPerfilUsuario(){
+            if (!this.sessionId) {
+                console.error('No se encontró la session_id.');
+                return;
+            }
+
+            const url = `https://api.themoviedb.org/3/account?session_id=${this.sessionId}&api_key=${this.apiKey}`;
+
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                     console.log(data);
+                    if (data && data.avatar && data.avatar.gravatar && data.avatar.gravatar.hash) {
+                        this.imgPATH = `https://secure.gravatar.com/avatar/${data.avatar.gravatar.hash}.jpg?s=64`;
+                        this.tieneImagen = true;
+                    } else {
+                        this.tieneImagen = false;
+                    }
+                })
+                .catch(error => console.error('Error al obtener el perfil del usuario:', error));
+        },
+        verificarSesion(){
+            if (this.sessionId!=undefined) this.estaLogeado = true
+            else this.estaLogeado = false
+        },
+        mostrarBotonCerrar(){
+            this.logout = this.logout;
+        },
+        cerrarSession(){
+            localStorage.clear();
+            window.location.href = '../index.html';
         }
     },
     mounted() {
+        sessionId = localStorage.getItem('sessionId')
         this.urlParams = new URLSearchParams(window.location.search)
-        if (this.urlParams!=undefined){
+        if (this.urlParams!=""){
             this.serieId = this.urlParams.get("id")
+        }else if(this.obtenerObjeto.media_type="tv"){
+            this.serieId = this.obtenerObjeto.id
         }else{
-            this.serieId = 231000
+            alert("Error al obtener los datos")
         }
-        console.log(this.serieId)
 
 
         this.obtenerDetallesPeli()
         this.obtenerKeywords()
         this.obtenerSeriesValoradasUsuario()
-        console.log("Componentes montados")
     }
 }).mount('#app');

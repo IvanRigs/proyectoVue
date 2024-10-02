@@ -14,12 +14,32 @@
 
 <body>
     <div id="app">
+        
         <!-- Barra de navegacion -->
         <div class="contenedor-navbar">
             <div class="contenedor-nombre-navbar">
-                <p class="fw-bold">r i s k l e i s.</p>
+                <p @click="goToHome" class="fw-bold">r i s k l e i s.</p>
+            </div>
+
+            <div class="opciones-navbar">
+                <p @click="goToHome" class="fw-bold">Inicio</p>
+                <p class="fs-6">Series</p>
+                <p class="fs-6">Peliculas</p>
+                <p class="fs-6">Novedades</p>
+            </div>
+
+            <div class="perfil-navbar">
+                <img v-if="tieneImagen" :src="imgPATH" alt="img" class="foto-perfil">
+                <div v-else class="contenedor-foto-perfil"></div>
+
+                <img @click="mostrarBotonCerrar()" src="../ver.png" alt="ver" class="ver">
+                <div v-if="logout">
+                    <button v-if="estaLogeado" @click="cerrarSession" class="btn btn-secondary">Cerrar sesión</button>
+                    <a v-else href="../login/login.html" class="btn btn-secondary">Iniciar sesión</a>
+                </div>
             </div>
         </div>
+
         <div id="contSerie">
             <div v-if="isLoading">
                 <h1 class="text-light">Cargando...</h1>
@@ -32,7 +52,7 @@
                     <div id="informacion" class="ms-3">
                         <h2 class="text-light">{{ detallesSerie.name }} <span>({{ year }})</span></h2>
                         <div class="mb-1 generos">
-                            <a v-for="genero in detallesSerie.genres" :href="`../DetalleCategoria/detalleCategoria.html?idkeyword=${genero.id}`" class="text-light p-1 me-1 border border-1 border-secondary rounded-pill categoria">
+                            <a v-for="genero in detallesSerie.genres" :href="`../DetalleCategoria/detalleCategoria.html?id=${genero.id}`" class="text-light p-1 me-1 border border-1 border-secondary rounded-pill categoria">
                                 {{ genero.name }}
                             </a>
                         </div>
@@ -96,7 +116,7 @@
                         <div id="palabrasClave" class="border-top border-bottom m-2 p-2">
                             <h3 class="text-light p-1">Palabras clave</h3>
                             <div id="keywords" class="mb-1">
-                                <a v-for="keywords in keywordsSerie" :href="`../detallePalabraClave/detallePalabraClave.html?idkeyword=${keywords.id}`"><span class="text-light ms-1 me-1 pe-2 ps-2 border rounded">{{ keywords.name }}</span></a>
+                                <a v-for="keywords in keywordsSerie" :href="`../detallePalabraClave/detallePalabraClave.html?id=${keywords.id}`"><span class="text-light ms-1 me-1 pe-2 ps-2 border rounded">{{ keywords.name }}</span></a>
                             </div>
                         </div>
                         <div id="trailer" class="border-top border-bottom m-2 p-2">

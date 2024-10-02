@@ -131,7 +131,8 @@ createApp({
 
         const showMediaDetails = (obj) => {
             localStorage.setItem('obj', JSON.stringify(obj));
-            location.href = "../detallePelicula/detallePelicula.html";
+            if (obj.media_type=="tv") location.href = "../detalleSerie/detalleSerie.html";
+            else location.href = "../detallePelicula/detallePelicula.html";
         };
 
         const logout = ref(false)
