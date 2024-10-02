@@ -89,6 +89,7 @@ html, body {
     .fw-bold{
         font-size: 32px;
         margin-bottom: 0;
+        cursor: pointer;
     }
 
     background-color: transparent;
@@ -114,7 +115,7 @@ html, body {
         justify-content: center;
         align-items: center;
         margin-left: 32px;
-        cursor: pointer;
+        /*cursor: pointer;*/
         margin-bottom: 0;
     }
 
@@ -122,6 +123,10 @@ html, body {
         font-size: 1rem;
         cursor: pointer;
         margin-bottom: 0;
+    }
+
+    #inicio {
+        cursor: pointer;
     }
 }
 
@@ -180,19 +185,8 @@ html, body {
             font-size: 20px;
             margin-bottom: 0;
             margin-right: 10px;
-            cursor: pointer;
         }
 
-        .fw-medium:hover{
-            #ir-boton{
-                display: block;
-            }
-        }
-
-        #ir-boton{
-            margin: 0;
-            display: none;
-        }
     }
 
     .contenido-categoria{
@@ -209,7 +203,8 @@ html, body {
     .card {
         border: none;
         width: 10rem;
-        margin: 5px;cursor: pointer;
+        margin: 5px;
+        cursor: pointer;
         flex-shrink: 0;
         transition: transform 0.2s;
     }
@@ -254,10 +249,4 @@ html, body {
         cursor: pointer;
     }
 
-}
-
-.invisible{
-    color: none;
-    background-color: none;
-    background: none;
 }

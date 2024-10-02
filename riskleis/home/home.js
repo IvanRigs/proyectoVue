@@ -28,20 +28,11 @@ createApp({
 
         const movie = ref();
 
-        const logout = ref(false)
-        const estaLogeado = ref(false)
-        
-        const verificarSesion = () => {
-            if (sessionId!=undefined) estaLogeado.value = true
-            else estaLogeado.value = false
+        // Regresar a home
+        const goToHome = () => {
+            location.href = "../home/home.html";
         }
-        const mostrarBotonCerrar = () => {
-            logout.value = !logout.value;
-        };
-        const cerrarSession = () => {
-            localStorage.removeItem('sessionId');
-            window.location.href = '../home/home.html';
-        };
+
         const obtenerTendencias = () => {
             const url = `https://api.themoviedb.org/3/trending/all/week?api_key=${apiKey}&language=es-ES&page=1`;
 
@@ -49,6 +40,7 @@ createApp({
                 .then(response => response.json())
                 .then(data => {
                     tendencias.value = data.results || [];
+                    console.log(tendencias)
                 })
                 .catch(error => console.error('Error al obtener tendencias:', error));
         };
@@ -131,10 +123,33 @@ createApp({
                 .catch(error => console.error('Error al obtener el perfil del usuario:', error));
         };
 
-        const showMovie = (movieId) => {
-            localStorage.setItem('movieId', movieId);
+        // const showMediaDetails = (mediaId, mediaType) => {
+        //     localStorage.setItem('movieId', mediaId);
+        //     localStorage.setItem('mediaType', mediaType);
+        //     location.href = "../detallePelicula/detallePelicula.html";
+        // };
+
+        const showMediaDetails = (obj) => {
+            localStorage.setItem('obj', JSON.stringify(obj));
             location.href = "../detallePelicula/detallePelicula.html";
+        };
+
+        const logout = ref(false)
+        const estaLogeado = ref(false)
+
+        const verificarSesion = () => {
+            if (sessionId!=undefined) estaLogeado.value = true
+            else estaLogeado.value = false
         }
+        const mostrarBotonCerrar = () => {
+            logout.value = !logout.value;
+        };
+        const cerrarSession = () => {
+            localStorage.removeItem('sessionId');
+            window.location.href = '../home/home.html';
+        };
+
+        verificarSesion()
 
         obtenerTopPeliculas();
         obtenerTendencias();
@@ -142,7 +157,7 @@ createApp({
         obtenerPopulares();
         obtenerSeries();
         obtenerPeliculasGratis();
-        verificarSesion()
+
 
         return {
             topPeliculas,
@@ -154,7 +169,9 @@ createApp({
             series,
             peliculasGratis,
             movie,
-            showMovie,
+            showMediaDetails,
+
+            goToHome,
             logout,
             mostrarBotonCerrar,
             cerrarSession,

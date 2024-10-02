@@ -5,6 +5,8 @@ createApp({
         const username = ref('');
         const password = ref('');
 
+        username.value = localStorage.getItem('username');
+
         const errorLogin = ref(false);
         const requestToken = ref('');
         const apiKey = 'f8c72830b3e50f4fdd3857dea8cb5d97';

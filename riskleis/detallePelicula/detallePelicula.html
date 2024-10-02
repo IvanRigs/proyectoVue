@@ -20,11 +20,11 @@
             <!-- Barra de navegacion -->
             <div class="contenedor-navbar">
                 <div class="contenedor-nombre-navbar">
-                    <p class="fw-bold">r i s k l e i s.</p>
+                    <p @click="goToHome()" class="fw-bold">r i s k l e i s.</p>
                 </div>
 
                 <div class="opciones-navbar">
-                    <p class="fs-6">Inicio</p>
+                    <p @click="goToHome()" class="fs-6" id="inicio">Inicio</p>
                     <p class="fs-6">Series</p>
                     <p class="fs-6">Peliculas</p>
                     <p class="fs-6">Novedades</p>
@@ -41,15 +41,37 @@
             <div class="banner-cont">
                 <div class="banner">
                     <img
-                            v-if="!loading && movie"
+                            v-if="movie"
                             :src="`https://image.tmdb.org/t/p/w1280${movie.backdrop_path}`"
                             class="d-block w-100"
                             alt="Imagen de la película"
                     >
-                    <div class="overlay" v-if="!loading && movie">
+                    <div class="overlay" v-if="movie">
                         <div class="banner-titulo">
-                            <p class="fw-bold">{{ movie.original_title }}</p>
+                            <p class="fw-bold">{{ movie.original_title || movie.name }}</p>
+
+                            <div class="info-movie">
+                                <p class="fs-6">{{ fecha }}</p>
+                                <p class="fs-5">|</p>
+                                <p v-for="genero in generos" id="generos" class="fs-5" >{{genero}}</p>
+                                <p class="fs-5">|</p>
+                                <p class="fs-5">{{puntuacionPromedio}} %</p>
+                            </div>
+
+                            <div class="info-movie">
+                                <img class="like" src="como.png" alt="like">
+                                <button @click="obtenerTrailer()" class="btn btn-primary" id="promedio">{{rate}} %</button>
+                            </div>
+
                             <p class="fs-6">{{ movie.overview }}</p>
+
+                            <div class="mb-3">
+                                <button @click="obtenerTrailer()" class="btn btn-primary">Ver trailer</button>
+                            </div>
+
+                            <div v-if="plataformas != null" class="plataformas">
+                                <img class="img-plataforma" v-if="plataformas && plataformas.length > 0" v-for="plataforma in plataformas" :src="'https://image.tmdb.org/t/p/original/' + plataforma.logo_path" alt="plataforma">
+                            </div>
                         </div>
                     </div>
                     <div v-else class="banner">
@@ -62,6 +84,35 @@
                 </div>
             </div>
 
+            <div class="cont-segundo">
+
+                <div class="categorias">
+                    <div class="categoria">
+                        <p class="fw-medium">Reparto</p>
+
+                        <div class="contenido-categoria" v-if="reparto && reparto.length > 0">
+                            <div v-for="actor in reparto" class="card" @click="" id="cartaReparto">
+                                <img :src="`https://image.tmdb.org/t/p/w500/${actor.profile_path}`" alt="Poster" class="card-img-top" @error="ocultarImagen" >
+                                <h5 class="card-title">{{actor.name}}</h5>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="categoria">
+                        <p class="fw-medium">Recomendaciones</p>
+
+                        <div class="contenido-categoria" v-if="genreData && genreData.length > 0">
+                            <div v-for="movie in genreData" class="card" @click="showMediaDetails(movie)">
+                                <img :src="`https://image.tmdb.org/t/p/w500/${movie.poster_path}`" alt="Poster" class="card-img-top">
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
 
         </div>
 
@@ -75,7 +126,6 @@
                 </div>
             </div>
         </footer>
-
 
     </div>
 

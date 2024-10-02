@@ -31,7 +31,7 @@
 
                     <div class="alineacionInputs">
                         <div class="mb-3">
-                            <input @click="errorLogin = false" type="text" v-model="username" placeholder="Usuario" class="form-control" required>
+                            <input @click="errorLogin = false" type="text" v-model="username" placeholder="Usuario" class="form-control" value="{{username}}" required>
 
                             <div v-if="errorLogin" class="text-danger" aria-live="assertive">
                                 Correo o contraseña incorrectas.
