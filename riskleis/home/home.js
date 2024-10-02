@@ -145,8 +145,8 @@ createApp({
             logout.value = !logout.value;
         };
         const cerrarSession = () => {
-            localStorage.removeItem('sessionId');
-            window.location.href = '../home/home.html';
+            localStorage.clear();
+            window.location.href = '../index.html';
         };
 
         verificarSesion()
