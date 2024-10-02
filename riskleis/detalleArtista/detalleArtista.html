@@ -17,26 +17,24 @@
       crossorigin="anonymous"
     ></script>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <link href="detalleArtista.css" rel="stylesheet">
 
-    <link href="detalleArtista.css" rel="stylesheet" />
-  </head>
+</head>
 
-  <body>
+<body>
     <div id="app">
       <div class="contenedor-principal">
-        <!-- Barra de navegacion -->
+        <!-- Barra de navegación -->
         <div class="contenedor-navbar">
           <div class="contenedor-nombre-navbar">
             <p class="fw-bold">r i s k l e i s.</p>
           </div>
-
           <div class="opciones-navbar">
             <p class="fw-bold">Inicio</p>
             <p class="fs-6">Series</p>
-            <p class="fs-6">Peliculas</p>
+            <p class="fs-6">Películas</p>
             <p class="fs-6">Novedades</p>
           </div>
-
           <div class="perfil-navbar">
             <img
               v-if="tieneImagen"
@@ -48,20 +46,47 @@
             <img src="../ver.png" alt="ver" class="ver" />
           </div>
         </div>
+
+       <!-- información del artista -->
+<div class="contenedor-artista">
+    <img v-if="tieneImagen" :src="imgPATH" alt="img" class="foto-perfil" />
+    <div class="info-artista">
+      <div v-if="personData">
+        <h1>{{ personData.name }}</h1>
+        <p>
+          <strong>Fecha de nacimiento:</strong> {{ personData.birthday }}
+        </p>
+        <p>
+          <strong>Lugar de nacimiento:</strong> {{ personData.place_of_birth }}
+        </p>
+        <p><strong>Biografía:</strong> {{ personData.biography }}</p>
+        <p v-if="personData.deathday">
+          <strong>Fallecimiento:</strong> {{ personData.deathday }}
+        </p>
       </div>
+  
+      <div v-else-if="errorMessage">
+        <p>{{ errorMessage }}</p>
+      </div>
+      <div v-else>
+        <p>Cargando información...</p>
+      </div>
+    </div>
+  </div>
+  
+  
 
       <footer id="pie">
         <div style="margin-top: 16px">
           <div class="contenidoUno">
             <p class="fs-3">r i s k l e i s</p>
-            <p class="fs-6">Contactanos</p>
+            <p class="fs-6">Contáctanos</p>
             <p class="fs-6">Ayuda</p>
             <p class="fs-6">Redes</p>
           </div>
         </div>
       </footer>
     </div>
-
     <script src="detalleArtista.js"></script>
-  </body>
+</body>
 </html>

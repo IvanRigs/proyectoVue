@@ -1,142 +1,57 @@
-html,
 body {
+  background-color: #f8f9fa; /* Color de fondo suave */
+  font-family: Arial, sans-serif; /* Fuente básica */
   margin: 0;
   padding: 0;
-  height: auto;
-  overflow: auto;
-  background-color: rgb(22, 22, 22);
 }
 
 .contenedor-principal {
-  background-color: rgb(32, 32, 32);
-  height: 100vh;
-  padding-bottom: 40px;
+  max-width: 1200px; /* Ancho máximo del contenedor */
+  margin: 0 auto; /* Centrar el contenedor */
+  padding: 20px; /* Espaciado interno */
 }
 
-/* navbar pagina principal*/
 .contenedor-navbar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-
-  display: flex;
-  width: 100%;
-  height: 8vh;
-  color: #fff;
-
-  z-index: 9999;
-
-  .fw-bold {
-    font-size: 32px;
-    margin-bottom: 0;
-  }
-
-  background-color: transparent;
-  transition: background-color 0.3s ease-in-out;
+  display: flex; /* Usar flexbox para la barra de navegación */
+  justify-content: space-between; /* Espaciar los elementos */
+  align-items: center; /* Alinear verticalmente */
+  background-color: #343a40; /* Color de fondo de la barra */
+  color: white; /* Color del texto */
+  padding: 10px 20px; /* Espaciado interno */
 }
 
-.contenedor-nombre-navbar {
-  display: flex;
-  width: 40%;
-  height: 100%;
-  justify-content: center;
-  align-items: center;
+.contenedor-artista {
+  display: flex; /* Usar flexbox para la sección del artista */
+  margin-top: 20px; /* Margen superior */
 }
 
-.opciones-navbar {
-  display: flex;
-  width: 40%;
-  height: 100%;
-  align-items: center;
-
-  .fs-6 {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-left: 32px;
-    cursor: pointer;
-    margin-bottom: 0;
-  }
+.contenedor-artista img {
+  border-radius: 50%; /* Imagen redondeada */
+  width: 150px; /* Ancho de la imagen */
+  height: 150px; /* Alto de la imagen */
+  object-fit: cover; /* Recortar la imagen para ajustarse */
+  margin-right: 20px; /* Espaciado a la derecha */
 }
 
-.perfil-navbar {
-  display: flex;
-  justify-content: right;
-  margin-right: 40px;
-  width: 30%;
-  height: 100%;
-  align-items: center;
-
-  .contenedor-foto-perfil {
-    width: 40px;
-    height: 40px;
-    border-radius: 25%;
-    background-color: white;
-    cursor: pointer;
-  }
-  .foto-perfil {
-    width: 40px;
-    border-radius: 25%;
-    height: auto;
-    cursor: pointer;
-  }
+.info-artista {
+  display: flex; /* Usar flexbox para la información del artista */
+  flex-direction: column; /* Colocar elementos en columna */
 }
 
-.contenedor-navbar.scroll {
-  background-color: rgba(32, 32, 32);
+footer {
+  text-align: center; /* Centrar el texto en el pie de página */
+  background-color: #343a40; /* Color de fondo del pie de página */
+  color: white; /* Color del texto */
+  padding: 20px 0; /* Espaciado interno */
+  margin-top: 20px; /* Margen superior */
 }
 
-.ver {
-  margin-left: 10px;
-  width: 16px;
-  height: auto;
-  cursor: pointer;
+/* Estilos adicionales para texto */
+h1 {
+  font-size: 24px; /* Tamaño del título */
 }
 
-/* .container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 200px;
-    }
-
-    .image {
-    width: 100%;
-    height: auto;
-    margin-bottom: 10px;
-    }
-
-    .info {
-    text-align: center;
-    font-size: 14px;
-    color: #333;
-    }*/
-
-#pie {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  color: white;
-}
-#pie h1 {
-  margin: 10px;
-}
-#pie .contenidoUno {
-  display: flex;
-  flex-direction: row;
-  margin: 10px;
-
-  .fs-6 {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-left: 32px;
-    cursor: pointer;
-  }
+p {
+  font-size: 16px; /* Tamaño del texto */
+  margin: 5px 0; /* Margen superior e inferior */
 }
