@@ -27,9 +27,7 @@
                 </div>
 
                 <div class="perfil-navbar">
-                    <!-- Si tiene una imagen cargada, la mostramos -->
                     <img v-if="tieneImagen" :src="imgPATH" alt="img" class="foto-perfil">
-                    <!-- Si no tiene imagen cargada, mostramos una imagen de perfil por defecto -->
                     <div v-else class="contenedor-foto-perfil">
                         <img src="./Icon.PNG" alt="default" class="foto-perfil">
                     </div>
@@ -66,7 +64,7 @@
                 <div class="categoria" v-for="(temporada, index) in temporadas" :key="index">
                     <p class="fw-medium">Temporada {{ temporada.numero }}</p>
                     <div class="contenido-categoria">
-                        <div v-for="episodio in temporada.episodios" :key="episodio.id" class="card">
+                        <div v-for="episodio in temporada.episodios" :key="episodio.id" class="card" @click="seleccionarEpisodio(episodio.id, temporada.numero)">
                             <img :src="episodio.imagen" alt="Episodio" class="card-img-top">
                             <div class="card-body">
                                 <h5 class="card-title">Episodio {{ episodio.id }}</h5>
@@ -75,6 +73,27 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Modal para estrellas invitadas -->
+            <div class="modal fade" id="modalEstrellas" tabindex="-1" aria-labelledby="modalEstrellasLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modalEstrellasLabel">Estrellas Invitadas</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <ul>
+                                <li v-for="estrella in estrellasInvitadas" :key="estrella.id">{{ estrella.name }}</li>
+                            </ul>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
 
         <footer id="pie">

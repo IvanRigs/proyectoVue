@@ -23,6 +23,7 @@ createApp({
         const serieTitulo = ref(''); // Título de la serie
         const serieDescripcion = ref(''); // Descripción de la serie
         const seriesId = 194764; // CAMBIA ESTO AL ID DE LA SERIE
+        const estrellasInvitadas = ref([]); // Estrellas invitadas
 
         const obtenerTopPeliculas = () => {
             const url = `https://api.themoviedb.org/3/movie/top_rated?api_key=${apiKey}&language=es-ES&page=1`;
@@ -97,10 +98,28 @@ createApp({
                 .catch(error => console.error('Error al obtener las temporadas:', error));
         };
 
+        const obtenerEstrellasInvitadas = (temporadaNumero) => {
+            const url = `https://api.themoviedb.org/3/tv/${seriesId}/season/${temporadaNumero}/aggregate_credits?language=en-US`;
+
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    estrellasInvitadas.value = data.guest_stars || [];
+                    // Mostrar el modal
+                    const modal = new bootstrap.Modal(document.getElementById('modalEstrellas'));
+                    modal.show();
+                })
+                .catch(error => console.error('Error al obtener las estrellas invitadas:', error));
+        };
+
+        const seleccionarEpisodio = (episodioId, temporadaNumero) => {
+            obtenerEstrellasInvitadas(temporadaNumero); // Obtener estrellas invitadas de la temporada
+        };
+
         obtenerTopPeliculas(); // Llamar a la función para obtener las películas al iniciar
         obtenerDetallesSerie(); // Llamar a la función para obtener detalles de la serie
         obtenerTemporadas(); // Llamar a la función para obtener las temporadas al iniciar
 
-        return { imgPATH, tieneImagen, topPeliculas, backdrops, temporadas, serieTitulo, serieDescripcion };
+        return { imgPATH, tieneImagen, topPeliculas, backdrops, temporadas, serieTitulo, serieDescripcion, seleccionarEpisodio, estrellasInvitadas };
     }
 }).mount('#app');
