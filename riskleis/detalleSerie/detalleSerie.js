@@ -283,7 +283,7 @@ createApp({
             else this.estaLogeado = false
         },
         mostrarBotonCerrar(){
-            this.logout = this.logout;
+            this.logout = !this.logout;
         },
         cerrarSession(){
             localStorage.clear();
@@ -305,5 +305,6 @@ createApp({
         this.obtenerDetallesPeli()
         this.obtenerKeywords()
         this.obtenerSeriesValoradasUsuario()
+        this.verificarSesion()
     }
 }).mount('#app');
