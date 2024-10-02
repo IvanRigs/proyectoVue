@@ -334,6 +334,11 @@ createApp({
             mostrarRange.value = !mostrarRange.value;
         }
 
+        const goToActor = (actor) => {
+            localStorage.setItem('artistaId', actor);
+            location.href = "../detalleArtista/detalleArtista.html";
+        } 
+
         return {
             imgPATH,
             tieneImagen,
@@ -354,6 +359,7 @@ createApp({
             rateMenu,
             mostrarRange,
             addRate,
+            goToActor
         }
     }
 }).mount('#app');

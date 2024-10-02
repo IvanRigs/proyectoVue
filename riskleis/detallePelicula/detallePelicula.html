@@ -92,7 +92,7 @@
                         <p class="fw-medium">Reparto</p>
 
                         <div class="contenido-categoria" v-if="reparto && reparto.length > 0">
-                            <div v-for="actor in reparto" class="card" @click="" id="cartaReparto">
+                            <div v-for="actor in reparto" class="card" @click="goToActor(actor.id)" id="cartaReparto">
                                 <img :src="`https://image.tmdb.org/t/p/w500/${actor.profile_path}`" alt="Poster" class="card-img-top" @error="ocultarImagen" >
                                 <h5 class="card-title">{{actor.name}}</h5>
                             </div>
