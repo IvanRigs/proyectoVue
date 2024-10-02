@@ -60,7 +60,8 @@
 
                             <div class="info-movie">
                                 <img class="like" src="como.png" alt="like">
-                                <button @click="obtenerTrailer()" class="btn btn-primary" id="promedio">{{rate}} %</button>
+                                <button @click="rateMenu()" class="btn btn-primary" id="promedio">{{rate}} %</button>
+                                <input v-if="mostrarRange" :style="{ display: mostrarRange ? 'block' : 'none' }" type="range" class="form-range" min="0" max="10" v-model="rangoSeleccionado" @input="addRate(rangoSeleccionado)">
                             </div>
 
                             <p class="fs-6">{{ movie.overview }}</p>

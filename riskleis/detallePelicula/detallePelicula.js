@@ -29,7 +29,11 @@ createApp({
         let genreData = ref([]);
         const puntuacionPromedio = ref();
 
-        const rate = ref()
+        const rate = ref(0);
+        const ratingsUsuario = ref();
+        const isRated = ref(false);
+        const accountId = ref();
+        const mostrarRange = ref(false);
 
         console.log(movie)
 
@@ -222,8 +226,8 @@ createApp({
 
         obtenerPuntuacionPromedio();
 
-        const addRate = (rate) => {
-            rate = (rate === '0') ? '0.5' : rate;
+        const addRate = (rater) => {
+            rater = (rater === '0') ? '0.5' : rater;
 
             if (!localStorage.getItem('sessionId')) {
                 alert("Debes iniciar sesión para calificar una película.");
@@ -239,7 +243,7 @@ createApp({
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ value: rate })
+                body: JSON.stringify({ value: rater })
             })
                 .then(response => {
                     if (!response.ok) {
@@ -251,8 +255,8 @@ createApp({
                     return response.json();
                 })
                 .then(data => {
-                    console.log(data)
-                    alert('Calificación enviada con éxito' + data);
+                    rate.value = (rater * 10);
+                    mostrarRange.value = !mostrarRange.value;
                 })
                 .catch(error => {
                     console.error('Error al enviar la calificación:', error.message);
@@ -260,45 +264,75 @@ createApp({
                 });
         };
 
-        const obtenerCalificacionUsuario = () => {
-            const url = movie.name == null
-                ? `https://api.themoviedb.org/3/movie/${movie.id}/rating?api_key=${apiKey}&session_id=${sessionId}`
-                : `https://api.themoviedb.org/3/tv/${movie.id}/rating?api_key=${apiKey}&session_id=${sessionId}`;
+        // const obtenerCalificacionUsuario = () => {
+        //     const url = movie.name == null
+        //         ? `https://api.themoviedb.org/3/movie/${movie.id}/rating?api_key=${apiKey}&session_id=${sessionId}`
+        //         : `https://api.themoviedb.org/3/tv/${movie.id}/rating?api_key=${apiKey}&session_id=${sessionId}`;
 
-            fetch(url)
-                .then(response => {
-                    if (!response.ok) {
-                        console.error(`Error ${response.status}: ${response.statusText}`);
-                        rate.value = '-1';
-                        throw new Error('Error al obtener la calificación');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    console.log('Calificación del usuario:', data);
-                    rate.value = data;
-                })
-                .catch(error => {
-                    console.error('Error al obtener la calificación del usuario:', error);
-                });
-        };
-
-        obtenerCalificacionUsuario()
-
-
-        // const verificarSession = () => {
-        //     const url = `https://api.themoviedb.org/3/account?session_id=${sessionId}&api_key=${apiKey}`;
         //     fetch(url)
-        //         .then(response => response.json())
+        //         .then(response => {
+        //             if (!response.ok) {
+        //                 console.error(`Error ${response.status}: ${response.statusText}`);
+        //                 rate.value = '-1';
+        //                 throw new Error('Error al obtener la calificación');
+        //             }
+        //             return response.json();
+        //         })
         //         .then(data => {
-        //             console.log('Información de la cuenta:', data);
+        //             console.log('Calificación del usuario:', data);
+        //             rate.value = data;
         //         })
         //         .catch(error => {
-        //             console.error('Error al verificar la sesión:', error);
+        //             console.error('Error al obtener la calificación del usuario:', error);
         //         });
         // };
-        //
-        // verificarSession()
+
+
+
+        const verificarSession = () => {
+            const url = `https://api.themoviedb.org/3/account?session_id=${sessionId}&api_key=${apiKey}`;
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    accountId.value = data.id;
+                    console.log(accountId);
+                })
+                .catch(error => {
+                    console.error('Error al verificar la sesión:', error);
+                });
+        };
+        
+        verificarSession()
+
+        const obtenerSeriesValoradasUsuario = () => {
+
+            const url = movie.name == null
+                ? `https://api.themoviedb.org/3/account/${accountId}/rated/movies?api_key=${apiKey}&session_id=${sessionId}`
+                : `https://api.themoviedb.org/3/account/${accountId}/rated/tv?api_key=${apiKey}&session_id=${sessionId}`;
+              
+            fetch(url)
+            .then(response => response.json())
+            .then(response => {
+                ratingsUsuario.value = JSON.parse(JSON.stringify(response)).results
+                estaValorada()
+            })
+            .catch(err => console.error(err));
+        }
+
+        const estaValorada = () => {
+            ratingsUsuario.value.forEach(item => {
+                if(item.id == movie.id){
+                    isRated.value = true;
+                    rate.value = (item.rating * 10);
+                }
+            });
+        };
+
+        obtenerSeriesValoradasUsuario();
+
+        const rateMenu = () => {
+            mostrarRange.value = !mostrarRange.value;
+        }
 
         return {
             imgPATH,
@@ -317,6 +351,9 @@ createApp({
             obtenerTrailer,
             ocultarImagen,
             showMediaDetails,
+            rateMenu,
+            mostrarRange,
+            addRate,
         }
     }
 }).mount('#app');
