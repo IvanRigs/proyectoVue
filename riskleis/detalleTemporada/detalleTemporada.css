@@ -256,3 +256,17 @@ html, body {
 
 }
 
+.estrella-img {
+    width: 80px; /* Tamaño de la imagen */
+    height: 80px;
+    object-fit: cover;
+    border-radius: 50%; /* Redondear las esquinas de la imagen */
+}
+.estrella-default {
+    width: 80px; /* Tamaño de la imagen por defecto */
+    height: 80px;
+}
+.modal-body {
+    max-height: 400px; /* Altura máxima del modal */
+    overflow-y: auto; /* Habilitar scroll vertical */
+}

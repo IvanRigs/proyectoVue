@@ -8,6 +8,15 @@ window.onload = function() {
             navbar.classList.remove('scroll');
         }
     });
+
+    // Verificar si la página ya se ha refrescado
+    if (!sessionStorage.getItem('hasRefreshed')) {
+        // Refrescar automáticamente la página una vez al cargar
+        setTimeout(() => {
+            sessionStorage.setItem('hasRefreshed', 'true'); // Marcar que se ha refrescado
+            location.reload();
+        }, 2000); // 2000 ms = 1 segundo
+    }
 };
 
 const { createApp, ref } = Vue;
@@ -15,15 +24,15 @@ const { createApp, ref } = Vue;
 createApp({
     setup() {
         const apiKey = 'f8c72830b3e50f4fdd3857dea8cb5d97';
-        const imgPATH = ref(''); // Ruta de la imagen de perfil
-        const tieneImagen = ref(false); // Indica si hay imagen de perfil
-        const topPeliculas = ref([]); // Películas mejor valoradas
-        const backdrops = ref([]); // Fondos de la serie
-        const temporadas = ref([]); // Temporadas de la serie
-        const serieTitulo = ref(''); // Título de la serie
-        const serieDescripcion = ref(''); // Descripción de la serie
-        const seriesId = 194764; // CAMBIA ESTO AL ID DE LA SERIE
-        const estrellasInvitadas = ref([]); // Estrellas invitadas
+        const imgPATH = ref('');
+        const tieneImagen = ref(false);
+        const topPeliculas = ref([]);
+        const backdrops = ref([]);
+        const temporadas = ref([]);
+        const serieTitulo = ref('');
+        const serieDescripcion = ref('');
+        const seriesId = 124364; // Cambia esto por el ID de la serie
+        const estrellasInvitadas = ref([]);
 
         const obtenerTopPeliculas = () => {
             const url = `https://api.themoviedb.org/3/movie/top_rated?api_key=${apiKey}&language=es-ES&page=1`;
@@ -46,9 +55,9 @@ createApp({
             fetch(url)
                 .then(response => response.json())
                 .then(data => {
-                    serieTitulo.value = data.name; // Obtener el título de la serie
-                    serieDescripcion.value = data.overview; // Obtener la descripción de la serie
-                    // Si hay una imagen de fondo, añadirla
+                    serieTitulo.value = data.name;
+                    serieDescripcion.value = data.overview;
+
                     if (data.backdrop_path) {
                         backdrops.value.push(`https://image.tmdb.org/t/p/w1280${data.backdrop_path}`);
                     }
@@ -63,63 +72,75 @@ createApp({
                 .then(response => response.json())
                 .then(data => {
                     const seasons = data.seasons;
+                    seasons.sort((a, b) => a.season_number - b.season_number); // Ordenar las temporadas
 
-                    // Para cada temporada, obtener los episodios
-                    seasons.forEach(temporada => {
-                        const episodios = new Array(temporada.episode_count).fill(null); // Arreglo para los episodios
-                        let episodiosCargados = 0; // Contador para saber cuándo todos los episodios están cargados
+                    // Uso de Promise.all para esperar a que se carguen todos los episodios
+                    const seasonPromises = seasons.map(temporada => {
+                        return cargarEpisodios(temporada);
+                    });
 
-                        for (let i = 1; i <= temporada.episode_count; i++) {
-                            fetch(`https://api.themoviedb.org/3/tv/${seriesId}/season/${temporada.season_number}/episode/${i}/images?api_key=${apiKey}&language=es-ES&include_image_language=en,null`)
-                                .then(response => response.json())
-                                .then(episodeData => {
-                                    const imagenEpisodio = episodeData.stills.length > 0 ? `https://image.tmdb.org/t/p/w500${episodeData.stills[0].file_path}` : 'default.png';
-
-                                    // Almacenar el episodio en el índice correcto
-                                    episodios[i - 1] = {
-                                        id: i,
-                                        imagen: imagenEpisodio
-                                    };
-
-                                    episodiosCargados++; // Incrementamos el contador
-
-                                    // Cuando se hayan obtenido todos los episodios, añadir la temporada a la lista
-                                    if (episodiosCargados === temporada.episode_count) {
-                                        temporadas.value.push({
-                                            numero: temporada.season_number,
-                                            episodios: episodios.filter(ep => ep !== null) // Filtrar episodios nulos
-                                        });
-                                    }
-                                })
-                                .catch(error => console.error('Error al obtener los episodios:', error));
-                        }
+                    Promise.all(seasonPromises).then(seasonsWithEpisodes => {
+                        temporadas.value = seasonsWithEpisodes;
                     });
                 })
-                .catch(error => console.error('Error al obtener las temporadas:', error));
+                .catch(error => console.error('Error al obtener temporadas:', error));
         };
 
-        const obtenerEstrellasInvitadas = (temporadaNumero) => {
-            const url = `https://api.themoviedb.org/3/tv/${seriesId}/season/${temporadaNumero}/aggregate_credits?language=en-US`;
+        const cargarEpisodios = (temporada) => {
+            const episodios = new Array(temporada.episode_count).fill(null);
+            const episodePromises = [];
+
+            for (let i = 1; i <= temporada.episode_count; i++) {
+                const promise = fetch(`https://api.themoviedb.org/3/tv/${seriesId}/season/${temporada.season_number}/episode/${i}/images?api_key=${apiKey}&language=es-ES&include_image_language=en,null`)
+                    .then(response => response.json())
+                    .then(episodeData => {
+                        const imagenEpisodio = episodeData.stills.length > 0 ? `https://image.tmdb.org/t/p/w500${episodeData.stills[0].file_path}` : 'default.png';
+                        episodios[i - 1] = {
+                            id: i,
+                            imagen: imagenEpisodio
+                        };
+                    })
+                    .catch(error => console.error('Error al obtener imagen del episodio:', error));
+                episodePromises.push(promise);
+            }
+
+            return Promise.all(episodePromises).then(() => {
+                const temporadaTitulo = temporada.season_number === 0 ? 'Especiales' : `Temporada ${temporada.season_number}`;
+                return {
+                    titulo: temporadaTitulo,
+                    numero: temporada.season_number,
+                    episodios
+                };
+            });
+        };
+
+        const seleccionarEpisodio = (episodioId, temporadaNumero) => {
+            const url = `https://api.themoviedb.org/3/tv/${seriesId}/season/${temporadaNumero}/episode/${episodioId}/credits?api_key=${apiKey}&language=en-US`;
 
             fetch(url)
                 .then(response => response.json())
                 .then(data => {
-                    estrellasInvitadas.value = data.guest_stars || [];
-                    // Mostrar el modal
+                    estrellasInvitadas.value = data.guest_stars;
                     const modal = new bootstrap.Modal(document.getElementById('modalEstrellas'));
                     modal.show();
                 })
-                .catch(error => console.error('Error al obtener las estrellas invitadas:', error));
+                .catch(error => console.error('Error al obtener estrellas invitadas:', error));
         };
 
-        const seleccionarEpisodio = (episodioId, temporadaNumero) => {
-            obtenerEstrellasInvitadas(temporadaNumero); // Obtener estrellas invitadas de la temporada
+        obtenerTopPeliculas();
+        obtenerDetallesSerie();
+        obtenerTemporadas();
+
+        return {
+            imgPATH,
+            tieneImagen,
+            topPeliculas,
+            backdrops,
+            temporadas,
+            serieTitulo,
+            serieDescripcion,
+            estrellasInvitadas,
+            seleccionarEpisodio
         };
-
-        obtenerTopPeliculas(); // Llamar a la función para obtener las películas al iniciar
-        obtenerDetallesSerie(); // Llamar a la función para obtener detalles de la serie
-        obtenerTemporadas(); // Llamar a la función para obtener las temporadas al iniciar
-
-        return { imgPATH, tieneImagen, topPeliculas, backdrops, temporadas, serieTitulo, serieDescripcion, seleccionarEpisodio, estrellasInvitadas };
     }
 }).mount('#app');

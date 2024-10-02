@@ -8,6 +8,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <link href="detalleTemporada.css" rel="stylesheet">
+    
 </head>
 
 <body>
@@ -62,7 +63,7 @@
 
             <div class="categorias">
                 <div class="categoria" v-for="(temporada, index) in temporadas" :key="index">
-                    <p class="fw-medium">Temporada {{ temporada.numero }}</p>
+                    <p class="fw-medium">Temporada {{ temporada.numero === 0 ? 'Especiales' : temporada.numero }}</p>
                     <div class="contenido-categoria">
                         <div v-for="episodio in temporada.episodios" :key="episodio.id" class="card" @click="seleccionarEpisodio(episodio.id, temporada.numero)">
                             <img :src="episodio.imagen" alt="Episodio" class="card-img-top">
@@ -83,9 +84,14 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <ul>
-                                <li v-for="estrella in estrellasInvitadas" :key="estrella.id">{{ estrella.name }}</li>
-                            </ul>
+                            <div class="row">
+                                <div v-for="(estrella, index) in estrellasInvitadas" :key="estrella.id" class="col-6 text-center">
+                                    <img :src="estrella.profile_path ? `https://image.tmdb.org/t/p/w500${estrella.profile_path}` : './default.png'" 
+                                         :alt="estrella.name" 
+                                         class="estrella-img estrella-default">
+                                    <p>{{ estrella.name }}</p>
+                                </div>
+                            </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
