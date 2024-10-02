@@ -28,6 +28,20 @@ createApp({
 
         const movie = ref();
 
+        const logout = ref(false)
+        const estaLogeado = ref(false)
+        
+        const verificarSesion = () => {
+            if (sessionId!=undefined) estaLogeado.value = true
+            else estaLogeado.value = false
+        }
+        const mostrarBotonCerrar = () => {
+            logout.value = !logout.value;
+        };
+        const cerrarSession = () => {
+            localStorage.removeItem('sessionId');
+            window.location.href = '../home/home.html';
+        };
         const obtenerTendencias = () => {
             const url = `https://api.themoviedb.org/3/trending/all/week?api_key=${apiKey}&language=es-ES&page=1`;
 
@@ -128,7 +142,7 @@ createApp({
         obtenerPopulares();
         obtenerSeries();
         obtenerPeliculasGratis();
-
+        verificarSesion()
 
         return {
             topPeliculas,
@@ -140,7 +154,11 @@ createApp({
             series,
             peliculasGratis,
             movie,
-            showMovie
+            showMovie,
+            logout,
+            mostrarBotonCerrar,
+            cerrarSession,
+            estaLogeado
         }
     }
 }).mount('#app');

@@ -33,7 +33,11 @@
                 <div class="perfil-navbar">
                     <img v-if="tieneImagen" :src="imgPATH" alt="img" class="foto-perfil">
                     <div v-else class="contenedor-foto-perfil"></div>
-                    <img src="../ver.png" alt="ver" class="ver">
+                    <img @click="mostrarBotonCerrar" src="../ver.png" alt="ver" class="ver">
+                    <div v-if="logout">
+                        <button v-if="estaLogeado" @click="cerrarSession" class="btn btn-secondary">Cerrar sesión</button>
+                        <a v-else href="../login/login.html" class="btn btn-secondary">Iniciar sesión</a>
+                    </div>
                 </div>
             </div>
 
