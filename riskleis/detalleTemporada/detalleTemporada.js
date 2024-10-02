@@ -31,7 +31,7 @@ createApp({
         const temporadas = ref([]);
         const serieTitulo = ref('');
         const serieDescripcion = ref('');
-        const seriesId = 124364; // Cambia esto por el ID de la serie
+        const seriesId = 226658; // Cambia esto por el ID de la serie
         const estrellasInvitadas = ref([]);
 
         const obtenerTopPeliculas = () => {
