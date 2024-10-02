@@ -2,14 +2,13 @@ body{
     background-color: rgb(22, 22, 22);
 }
 
-#app{
-    width: 100%;
+a{
+    text-decoration: none;
+    color: #000000;
 }
 
-.contenido-principal{
+#app{
     width: 100%;
-    height: 100vh;
-    background-color: rgb(32, 32, 32);
 }
 
 #banner{
@@ -18,23 +17,13 @@ body{
     margin-bottom: 20px;
 }
 
-#contForm{
+.generos{
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    color: white;
 }
 
 .fs-1 {
     text-align: center;
     margin-top: 10px;
-}
-
-#contForm > form{
-    /*background-color: lightblue;*/
-    width: 33%;
-    padding: 15px;
-    height: 75vh;
 }
 
 .border-rounded{
@@ -90,6 +79,15 @@ body{
     align-items: center;
 }
 
+#contSerie{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#contCentral{
+    width: 60%;
+    min-width: 70%;
+}
 #contPrincipal{
     display: flex;
     flex-direction: row;
@@ -101,20 +99,27 @@ body{
     align-items: flex-start;
 }
 
+#contVotos{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+/* Estilo para el promedio de votaciones */
 .contPromVotos{
     display: flex;
     align-items: center;
     flex-direction: column;
-    width: 420px;
-    padding: 50px 0px;
+    width: 105px; /* 420 */
+    padding: 25px 0px; /* 50px 0px */
     border-radius: 8px;
-    background: #fff;
+    background: rgb(22, 22, 22); /* #fff */
     row-gap: 30px;
 }
 .circularProgress{
     position: relative;
-    height: 250px;
-    width: 250px;
+    height: 63px;/* 250 */
+    width: 63px; /* 250 */
     border-radius: 50%;
     /*background: conic-gradient(#2A83E8 3.6deg, #E3E3E3 0deg);*/
     justify-content: center;
@@ -125,14 +130,49 @@ body{
 .circularProgress::before{
     content: "";
     position: absolute;
-    height: 210px;
-    width: 210px;
+    height: 52px; /* 210 */
+    width: 52px; /* 210 */
     border-radius: 50%;
-    background-color: #fff;
+    background-color: #000000;
 }
 .progressValue{
     position: relative;
-    font-size: 40px;
+    font-size: 18px;
     font-weight: 600;
-    color: #2A83E8;
+    color: #07ec1a; /* 07ec1a */
+}
+
+#contCreadorYfav button{
+    padding: 0px;
+    width: 60px;
+    height: 60px;
+    background-color: rgb(22, 22, 22);
+}
+#contCreadorYfav img{
+    width: 50px;
+    height: 50px;
+}
+.este {
+    height: 350px;
+    line-height: 1em;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    width: 100%;
+    border: 1px solid;
+}
+.scroll-container {
+    display: flex;
+    overflow-x: auto; 
+    white-space: nowrap; 
+}
+.scroll-elemento{
+    width: auto;
+    height: auto;
+    flex-shrink: 0;
+    margin-right: 10px;
+}
+#keywords{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
 }
