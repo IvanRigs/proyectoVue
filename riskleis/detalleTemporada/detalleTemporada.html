@@ -11,11 +11,9 @@
 </head>
 
 <body>
-
     <div id="app">
         <div class="contenedor-principal">
-
-            <!-- Barra de navegacion -->
+            <!-- Barra de navegación -->
             <div class="contenedor-navbar">
                 <div class="contenedor-nombre-navbar">
                     <p class="fw-bold">r i s k l e i s.</p>
@@ -29,23 +27,26 @@
                 </div>
 
                 <div class="perfil-navbar">
+                    <!-- Si tiene una imagen cargada, la mostramos -->
                     <img v-if="tieneImagen" :src="imgPATH" alt="img" class="foto-perfil">
-                    <div v-else class="contenedor-foto-perfil"></div>
-                    <img src="../ver.png" alt="ver" class="ver">
+                    <!-- Si no tiene imagen cargada, mostramos una imagen de perfil por defecto -->
+                    <div v-else class="contenedor-foto-perfil">
+                        <img src="./Icon.PNG" alt="default" class="foto-perfil">
+                    </div>
+                    <img src="./ver.png" alt="ver" class="ver">
                 </div>
             </div>
 
-            <!-- BANNER -->
             <div class="banner-cont">
                 <div v-if="backdrops.length > 0" class="banner">
                     <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
                         <div class="carousel-inner">
                             <div v-for="(backdrop, index) in backdrops" :key="index" class="carousel-item" :class="{'active': index === 0}">
-                                <img :src="backdrop" class="d-block w-100" alt="Imagen de la película">
-                                <div class="overlay" v-if="topPeliculas.length > index">
+                                <img :src="backdrop" class="d-block w-100" alt="Imagen de la serie">
+                                <div class="overlay">
                                     <div class="banner-titulo">
-                                        <p class="fw-bold">{{ topPeliculas[index].original_title }}</p>
-                                        <p class="fs-6">{{ topPeliculas[index].overview }}</p>
+                                        <p class="fw-bold">{{ serieTitulo }}</p>
+                                        <p class="fs-6">{{ serieDescripcion }}</p>
                                     </div>
                                 </div>
                             </div>
@@ -63,10 +64,13 @@
 
             <div class="categorias">
                 <div class="categoria" v-for="(temporada, index) in temporadas" :key="index">
-                    <p class="fw-medium">Temporada {{ index + 1 }}</p>
-                    <div class="contenido-categoria" v-if="temporada.episodios.length > 0">
+                    <p class="fw-medium">Temporada {{ temporada.numero }}</p>
+                    <div class="contenido-categoria">
                         <div v-for="episodio in temporada.episodios" :key="episodio.id" class="card">
                             <img :src="episodio.imagen" alt="Episodio" class="card-img-top">
+                            <div class="card-body">
+                                <h5 class="card-title">Episodio {{ episodio.id }}</h5>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -77,7 +81,7 @@
             <div style="margin-top: 16px">
                 <div class="contenidoUno">
                     <p class="fs-3">r i s k l e i s</p>
-                    <p class="fs-6">Contactanos</p>
+                    <p class="fs-6">Contáctanos</p>
                     <p class="fs-6">Ayuda</p>
                     <p class="fs-6">Redes</p>
                 </div>
